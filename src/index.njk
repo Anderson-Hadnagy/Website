@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+title: Welcome Home
+hero_title: "Fast. Simple. Static."
+hero_subtitle: "This site is powered by Eleventy and managed via Git."
+featured_image: "/assets/uploads/hero.jpg"
+---
+
+<section class="hero">
+  <h1>{{ hero_title }}</h1>
+  <p>{{ hero_subtitle }}</p>
+  <a href="/contact" class="btn">Get Started</a>
+</section>
+
+<section class="features">
+  <h2>Why this setup?</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Eleventy Speed</h3>
+      <p>Zero client-side JS by default. Your users get content instantly.</p>
+    </div>
+    <div class="card">
+      <h3>GitCMS Workflow</h3>
+      <p>Edit content in a UI; it commits directly to your repository.</p>
+    </div>
+  </div>
+</section>
+
+<section class="latest-posts">
+  <h2>Latest Updates</h2>
+  <ul>
+    {%- for post in collections.post | reverse | limit(3) -%}
+      <li>
+        <a href="{{ post.url }}">{{ post.data.title }}</a> 
+        <span>— {{ post.date | postDate }}</span>
+      </li>
+    {%- else -%}
+      <li>No posts found yet. Start writing in the CMS!</li>
+    {%- endfor -%}
+  </ul>
+</section>

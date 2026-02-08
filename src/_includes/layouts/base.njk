@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | My Static Site</title>
+  <link rel="stylesheet" href="/assets/css/style.css"></head>
+<body>
+<nav>
+  <a href="/"><strong>Brand</strong></a>
+  <ul>
+    <li><a href="/posts/">Blog</a></li> <li><a href="/about/">About</a></li>
+  </ul>
+</nav>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+<footer>
+  <p>&copy; {{ "" | year }} Built with 11ty</p>
+</footer>
+</body>
+</html>

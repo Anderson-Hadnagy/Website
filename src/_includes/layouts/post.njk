@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+---
+<article>
+  <header class="post-header">
+    <h1>{{ title }}</h1>
+    <time>{{ date | postDate }}</time>
+    {% if image %}
+      <img src="{{ image }}" alt="{{ title }}" style="width: 100%; border-radius: 12px; margin-top: 1rem;">
+    {% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content | safe }}
+  </div>
+
+  <p><a href="/">← Back Home</a></p>
+</article>
+
+<style>
+  .post-header { margin-bottom: 2rem; }
+  .post-content { font-size: 1.1rem; line-height: 1.8; }
+</style>
