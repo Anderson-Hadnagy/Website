@@ -1,7 +1,8 @@
 backend:
   name: github
-  repo: Anderson-Hadnagy/Website
-  branch: main # Ensure this matches your default branch name
+  repo: Anderson-Hadnagy/Website # Path to your GitHub repo
+  branch: main # The branch you want to edit
+  base_url: https://your-oauth-proxy.com # We will create this in the next step
 
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
