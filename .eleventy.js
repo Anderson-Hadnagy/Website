@@ -15,15 +15,16 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("postDate", (dateObj) => {
-    return new Date(dateObj).toLocaleDateString('hu-HU', { // Switched to Hungarian locale
+    return new Date(dateObj).toLocaleDateString('hu-HU', { 
       year: "numeric",
       month: "short",
       day: "numeric"
     });
   });
 
-  eleventyConfig.addPassthroughCopy("src/assets"); [cite: 2]
-  eleventyConfig.addPassthroughCopy("src/admin"); [cite: 2]
+  // REMOVED  FROM THESE LINES:
+  eleventyConfig.addPassthroughCopy("src/assets"); 
+  eleventyConfig.addPassthroughCopy("src/admin"); 
 
   return {
     dir: {
