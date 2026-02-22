@@ -9,16 +9,19 @@ hero_subtitle: "Fedezd fel a rejtett mozgatórugókat, értsd meg a tudatalattid
   <h1>{{ hero_title }}</h1>
   <p>{{ hero_subtitle }}</p>
   <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+    {# Leading slash ensures the Base Plugin fixes this for GitHub #}
     <a href="/about/" class="btn">Miért a pszichológia?</a>
     <a href="/posts/" class="btn" style="background: transparent; border: 1px solid var(--primary); color: #fff; box-shadow: none;">Cikkek olvasása</a>
   </div>
 </section>
 
 <section style="max-width: 800px; margin: 4rem auto;">
-  <blockquote>
+  <blockquote style="border-left: 4px solid var(--primary); padding-left: 1.5rem; font-style: italic;">
     "Az agy egy világ, amely sokkal hatalmasabb és titokzatosabb, mint a csillagos égbolt felettünk. Minden egyes gondolat egy új univerzum születése."
-    <em>— Santiago Ramón y Cajal, a modern idegtudomány atyja</em>
+    <em style="display: block; margin-top: 0.5rem; font-style: normal; font-weight: bold;">— Santiago Ramón y Cajal, a modern idegtudomány atyja</em>
   </blockquote>
+</section>
+
 <section style="margin-bottom: 6rem;">
   <div style="text-align: center; margin-bottom: 3.5rem;">
     <h2 style="color: #fff; font-size: 2.5rem; margin-bottom: 0.5rem;">Miket fedezhetsz fel nálunk?</h2>
@@ -27,7 +30,7 @@ hero_subtitle: "Fedezd fel a rejtett mozgatórugókat, értsd meg a tudatalattid
   
   <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
     
-    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden;">
+    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden; background: var(--bg-card); padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
       <div style="font-size: 2.5rem; margin-bottom: 1rem; background: rgba(129, 140, 248, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; border: 1px solid rgba(129, 140, 248, 0.2);">
         🌌
       </div>
@@ -37,7 +40,7 @@ hero_subtitle: "Fedezd fel a rejtett mozgatórugókat, értsd meg a tudatalattid
       </p>
     </div>
 
-    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden;">
+    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden; background: var(--bg-card); padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
       <div style="font-size: 2.5rem; margin-bottom: 1rem; background: rgba(248, 113, 113, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; border: 1px solid rgba(248, 113, 113, 0.2);">
         🧠
       </div>
@@ -47,7 +50,7 @@ hero_subtitle: "Fedezd fel a rejtett mozgatórugókat, értsd meg a tudatalattid
       </p>
     </div>
 
-    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden;">
+    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden; background: var(--bg-card); padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
       <div style="font-size: 2.5rem; margin-bottom: 1rem; background: rgba(74, 222, 128, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; border: 1px solid rgba(74, 222, 128, 0.2);">
         🌊
       </div>
@@ -71,12 +74,13 @@ hero_subtitle: "Fedezd fel a rejtett mozgatórugókat, értsd meg a tudatalattid
 </section>
 
 <section style="max-width: 800px; margin: 0 auto 4rem auto;">
-  <blockquote>
+  <blockquote style="border-left: 4px solid var(--primary); padding-left: 1.5rem; font-style: italic;">
     "Az inger és a reakció között van egy tér. Ebben a térben rejlik a szabadságunk és a hatalmunk, hogy megválasszuk a válaszunkat. A válaszunkban pedig a növekedésünk és a boldogságunk."
-    <em>— Viktor E. Frankl, pszichiáter, a logoterápia megalkotója</em>
+    <em style="display: block; margin-top: 0.5rem; font-style: normal; font-weight: bold;">— Viktor E. Frankl, pszichiáter, a logoterápia megalkotója</em>
   </blockquote>
   
   <div style="text-align: center; margin-top: 3rem;">
+    {# Added leading slash #}
     <a href="/posts/" class="btn" style="font-size: 1.2rem; padding: 1rem 3rem;">Kezdd el az olvasást most</a>
   </div>
 </section>
