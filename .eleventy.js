@@ -22,10 +22,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
 
-  return {
+return {
     dir: {
       input: "src",
-      output: "public"
+      output: "_site" // "public" helyett "_site" kell, hogy egyezzen a GitHub-al
     }
   };
 };
