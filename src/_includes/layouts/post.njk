@@ -5,7 +5,9 @@ layout: layouts/base.njk
   <header class="post-header">
     <h1>{{ title }}</h1>
     <time>{{ date | postDate }}</time>
+    
     {% if image %}
+      {# Ensure the image path in your Markdown/Frontmatter starts with /assets/ #}
       <img src="{{ image }}" alt="{{ title }}" style="width: 100%; border-radius: 12px; margin-top: 1rem;">
     {% endif %}
   </header>
@@ -14,11 +16,20 @@ layout: layouts/base.njk
     {{ content | safe }}
   </div>
 
-<a href="/" class="back-btn">
-  <span class="arrow">&larr;</span> Vissza a kezdőlapra
-</a></article>
+  {# Using a leading slash allows 11ty to prefix this with /Website/ automatically #}
+  <a href="/" class="back-btn">
+    <span class="arrow">&larr;</span> Vissza a kezdőlapra
+  </a>
+</article>
 
 <style>
   .post-header { margin-bottom: 2rem; }
   .post-content { font-size: 1.1rem; line-height: 1.8; }
+  /* Added a bit of styling for your back button to make it look like a button */
+  .back-btn { 
+    display: inline-block; 
+    margin-top: 2rem; 
+    text-decoration: none; 
+    color: #007bff; 
+  }
 </style>
