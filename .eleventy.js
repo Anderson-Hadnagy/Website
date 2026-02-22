@@ -1,31 +1,23 @@
 module.exports = function(eleventyConfig) {
-  
-  eleventyConfig.addFilter("year", () => {
-    return new Date().getFullYear();
-  });
-
-  eleventyConfig.addFilter("limit", (array, limit) => {
-    return array.slice(0, limit);
-  });
-
+  // 1. Szűrők (év, limit, dátum)
+  eleventyConfig.addFilter("year", () => new Date().getFullYear());
+  eleventyConfig.addFilter("limit", (array, limit) => array.slice(0, limit));
   eleventyConfig.addFilter("postDate", (dateObj) => {
     return new Date(dateObj).toLocaleDateString('hu-HU', {
-      year: "numeric",
-      month: "short",
-      day: "numeric"
+      year: "numeric", month: "short", day: "numeric"
     });
   });
 
-  // Assets másolása
+  // 2. CSS és Képek másolása (A mappaszerkezeted alapján)
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
 
   return {
-    // CSERÉLD KI a 'repo-neved' részt a GitHub repozitóriód nevére!
+    // FONTOS: Ide a GitHub repód nevét írd be két per jel közé!
     pathPrefix: "/Website/", 
     dir: {
       input: "src",
-      output: "_site" 
+      output: "_site" // Maradjunk a _site-nál, mert a GitHub Action ezt keresi
     }
   };
 };
