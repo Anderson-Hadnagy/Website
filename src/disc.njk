@@ -1,0 +1,242 @@
+---
+layout: layouts/base.njk
+title: DISC Személyiségteszt
+permalink: /disc/
+---
+
+<style>
+  .quiz-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+  .quiz-card p {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-main);
+    font-size: 1.1rem;
+  }
+  .quiz-option:hover {
+    background: rgba(129, 140, 248, 0.1);
+    border-color: var(--primary);
+    transform: translateX(5px);
+  }
+  .quiz-option input[type="radio"] {
+    accent-color: var(--primary);
+    transform: scale(1.3);
+    margin: 0;
+    cursor: pointer;
+  }
+</style>
+
+<section class="hero" style="padding: 4rem 2rem; background: transparent; border: none; box-shadow: none; margin-bottom: 0;">
+  <h1 style="font-size: 3.5rem; color: #fff; margin-bottom: 1rem;">A DISC Modell</h1>
+  <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Tudd meg, melyik személyiségtípusba tartozol: Domináns (Piros), Befolyásoló (Sárga), Stabil (Zöld) vagy Szabálytisztelő (Kék)!</p>
+</section>
+
+<section style="max-width: 760px; margin: 0 auto; padding: 2rem 2rem 6rem 2rem;">
+  
+  <div style="text-align: center; margin-bottom: 3rem;">
+    <h2 style="color: #fff; font-size: 2rem; margin-bottom: 0.5rem;">25 Kérdéses Mélyteszt</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Minden kérdésnél válaszd ki azt a tulajdonságot, amelyik a <strong>leginkább</strong> jellemző rád.</p>
+  </div>
+  
+  <form id="discQuiz">
+    <div class="quiz-card"><p>1. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q1" value="C"> Gondos és elemző</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="S"> Állhatatos és odafigyelő</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="I"> Befolyásoló és teátrális</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="D"> Jó stratéga és nyomuló</label>
+    </div>
+    <div class="quiz-card"><p>2. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q2" value="I"> Szeretetreméltó és gyors</label>
+      <label class="quiz-option"><input type="radio" name="q2" value="S"> Megbízható és visszafogott</label>
+      <label class="quiz-option"><input type="radio" name="q2" value="D"> Erőteljes és célorientált</label>
+      <label class="quiz-option"><input type="radio" name="q2" value="C"> Rendszeres és logikus</label>
+    </div>
+    <div class="quiz-card"><p>3. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q3" value="S"> Nyugodt és kiegyensúlyozott</label>
+      <label class="quiz-option"><input type="radio" name="q3" value="D"> Eltökélt és domináns</label>
+      <label class="quiz-option"><input type="radio" name="q3" value="I"> Vidám és társaságkedvelő</label>
+      <label class="quiz-option"><input type="radio" name="q3" value="C"> Pontos és részletekbe menő</label>
+    </div>
+    <div class="quiz-card"><p>4. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q4" value="D"> Önbizalommal teli és dinamikus</label>
+      <label class="quiz-option"><input type="radio" name="q4" value="C"> Rendszerető és tömören fogalmazó</label>
+      <label class="quiz-option"><input type="radio" name="q4" value="S"> Családias és kiegyensúlyozott</label>
+      <label class="quiz-option"><input type="radio" name="q4" value="I"> Beszédes és könnyed</label>
+    </div>
+    <div class="quiz-card"><p>5. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q5" value="C"> Logikus és tisztafejű</label>
+      <label class="quiz-option"><input type="radio" name="q5" value="D"> Egyenes és megkérdőjelező</label>
+      <label class="quiz-option"><input type="radio" name="q5" value="S"> Hűséges és alkalmazkodó</label>
+      <label class="quiz-option"><input type="radio" name="q5" value="I"> Emberszerető és aktív</label>
+    </div>
+    <div class="quiz-card"><p>6. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q6" value="S"> Kapcsolatépítő és elfogadó</label>
+      <label class="quiz-option"><input type="radio" name="q6" value="I"> Kifejező és reménnyel teli</label>
+      <label class="quiz-option"><input type="radio" name="q6" value="D"> Hatalmat gyakorló és önérvényesítő</label>
+      <label class="quiz-option"><input type="radio" name="q6" value="C"> Megbízható és korrekt</label>
+    </div>
+    <div class="quiz-card"><p>7. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q7" value="I"> Meggyőző és rábeszélő</label>
+      <label class="quiz-option"><input type="radio" name="q7" value="C"> Kérdező és elgondolkodó</label>
+      <label class="quiz-option"><input type="radio" name="q7" value="D"> Gyorsan reagáló és kezdeményező</label>
+      <label class="quiz-option"><input type="radio" name="q7" value="S"> Megbízható és korrekt</label>
+    </div>
+    <div class="quiz-card"><p>8. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q8" value="D"> Eltökélt és önbizalommal teli</label>
+      <label class="quiz-option"><input type="radio" name="q8" value="I"> Társaságkedvelő és vidám</label>
+      <label class="quiz-option"><input type="radio" name="q8" value="S"> Hűséges és segítőkész</label>
+      <label class="quiz-option"><input type="radio" name="q8" value="C"> Megbízható és korrekt</label>
+    </div>
+    <div class="quiz-card"><p>9. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q9" value="S"> Érzékeny és diplomatikus</label>
+      <label class="quiz-option"><input type="radio" name="q9" value="C"> Pontos és kimért</label>
+      <label class="quiz-option"><input type="radio" name="q9" value="I"> Bátorító és elismerő</label>
+      <label class="quiz-option"><input type="radio" name="q9" value="D"> Eredményorientált és gyors</label>
+    </div>
+    <div class="quiz-card"><p>10. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q10" value="D"> Felelősségteljes és határozott</label>
+      <label class="quiz-option"><input type="radio" name="q10" value="S"> Visszafogott és együttműködő</label>
+      <label class="quiz-option"><input type="radio" name="q10" value="I"> Nyitott és társaságkedvelő</label>
+      <label class="quiz-option"><input type="radio" name="q10" value="C"> Részletekbe menő és pontos</label>
+    </div>
+    <div class="quiz-card"><p>11. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q11" value="I"> Együttműködő és impulzív</label>
+      <label class="quiz-option"><input type="radio" name="q11" value="C"> Racionális és tényszerű</label>
+      <label class="quiz-option"><input type="radio" name="q11" value="S"> Kiegyensúlyozott és kedves</label>
+      <label class="quiz-option"><input type="radio" name="q11" value="D"> Feladatra koncentráló és praktikus</label>
+    </div>
+    <div class="quiz-card"><p>12. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q12" value="C"> Elemző és alapos</label>
+      <label class="quiz-option"><input type="radio" name="q12" value="I"> Barátságos és szórakoztató</label>
+      <label class="quiz-option"><input type="radio" name="q12" value="D"> Versenyszellemű és irányító</label>
+      <label class="quiz-option"><input type="radio" name="q12" value="S"> Jóindulatú és segítőkész</label>
+    </div>
+    <div class="quiz-card"><p>13. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q13" value="S"> Közvetlen és bizalommal teli</label>
+      <label class="quiz-option"><input type="radio" name="q13" value="I"> Érzelemmel teli és lelkesítő</label>
+      <label class="quiz-option"><input type="radio" name="q13" value="C"> Objektív és elemző</label>
+      <label class="quiz-option"><input type="radio" name="q13" value="D"> Aktív és irányító</label>
+    </div>
+    <div class="quiz-card"><p>14. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q14" value="D"> Erős akaratú és célratörő</label>
+      <label class="quiz-option"><input type="radio" name="q14" value="C"> Érvekre és tényekre koncentráló</label>
+      <label class="quiz-option"><input type="radio" name="q14" value="I"> Érzelmileg motivált és magával ragadó</label>
+      <label class="quiz-option"><input type="radio" name="q14" value="S"> Odafigyelő és érzékeny</label>
+    </div>
+    <div class="quiz-card"><p>15. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q15" value="C"> Rendszerben gondolkodó</label>
+      <label class="quiz-option"><input type="radio" name="q15" value="I"> Vidám és népszerű</label>
+      <label class="quiz-option"><input type="radio" name="q15" value="S"> Békítő és megnyugtató</label>
+      <label class="quiz-option"><input type="radio" name="q15" value="D"> Iránymutató és erőt adó</label>
+    </div>
+    <div class="quiz-card"><p>16. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q16" value="I"> Meggyőző és mozgékony</label>
+      <label class="quiz-option"><input type="radio" name="q16" value="D"> Határozott és azonnal cselekvő</label>
+      <label class="quiz-option"><input type="radio" name="q16" value="C"> Fegyelmezett és lépésenként haladó</label>
+      <label class="quiz-option"><input type="radio" name="q16" value="S"> Toleráns és nyugodt</label>
+    </div>
+    <div class="quiz-card"><p>17. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q17" value="S"> Empátiával teli és türelmes</label>
+      <label class="quiz-option"><input type="radio" name="q17" value="C"> Független szellemű és fegyelmezett</label>
+      <label class="quiz-option"><input type="radio" name="q17" value="D"> Feladatorientált és kompetitív</label>
+      <label class="quiz-option"><input type="radio" name="q17" value="I"> Vitára kész és spontán</label>
+    </div>
+    <div class="quiz-card"><p>18. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q18" value="I"> Másokra hatni tudó és impulzív</label>
+      <label class="quiz-option"><input type="radio" name="q18" value="S"> Odafigyelő és másokkal törődő</label>
+      <label class="quiz-option"><input type="radio" name="q18" value="C"> Nem részre hajló és objektív</label>
+      <label class="quiz-option"><input type="radio" name="q18" value="D"> Versenyre hívó és célratörő</label>
+    </div>
+    <div class="quiz-card"><p>19. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q19" value="C"> Rendszerben gondolkodó és felkészült</label>
+      <label class="quiz-option"><input type="radio" name="q19" value="D"> Bátor és független</label>
+      <label class="quiz-option"><input type="radio" name="q19" value="I"> Nyitott és extrovertált</label>
+      <label class="quiz-option"><input type="radio" name="q19" value="S"> Tanácsadó és másokkal törődő</label>
+    </div>
+    <div class="quiz-card"><p>20. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q20" value="D"> Jól kommunikáló és erős akaratú</label>
+      <label class="quiz-option"><input type="radio" name="q20" value="I"> Spontán és ötletekkel teli</label>
+      <label class="quiz-option"><input type="radio" name="q20" value="C"> A dolgokat átgondolni szerető és racionalista</label>
+      <label class="quiz-option"><input type="radio" name="q20" value="S"> Békéltető és harmóniára törekvő</label>
+    </div>
+    <div class="quiz-card"><p>21. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q21" value="C"> Jól szervezett és elgondolkodó</label>
+      <label class="quiz-option"><input type="radio" name="q21" value="S"> Türelmes és másokat támogató</label>
+      <label class="quiz-option"><input type="radio" name="q21" value="D"> Erős és hatékony érvelő</label>
+      <label class="quiz-option"><input type="radio" name="q21" value="I"> Másokat bevonó és nyitott</label>
+    </div>
+    <div class="quiz-card"><p>22. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q22" value="D"> Objektív és kihívó</label>
+      <label class="quiz-option"><input type="radio" name="q22" value="S"> Nyugodt és békés</label>
+      <label class="quiz-option"><input type="radio" name="q22" value="C"> Tényekhez és konvencióhoz ragaszkodó</label>
+      <label class="quiz-option"><input type="radio" name="q22" value="I"> Élettel teli és befogadó</label>
+    </div>
+    <div class="quiz-card"><p>23. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q23" value="I"> Lelkesítő és energiát sugárzó</label>
+      <label class="quiz-option"><input type="radio" name="q23" value="D"> Előrevivő és gyakorlatias</label>
+      <label class="quiz-option"><input type="radio" name="q23" value="S"> Figyelmes és másokkal törődő</label>
+      <label class="quiz-option"><input type="radio" name="q23" value="C"> Részletekbe menő és fókuszált</label>
+    </div>
+    <div class="quiz-card"><p>24. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q24" value="S"> Támogató és hűséges</label>
+      <label class="quiz-option"><input type="radio" name="q24" value="D"> Független és bátor</label>
+      <label class="quiz-option"><input type="radio" name="q24" value="C"> Elemző és alapos</label>
+      <label class="quiz-option"><input type="radio" name="q24" value="I"> Társaságkedvelő és élettel teli</label>
+    </div>
+    <div class="quiz-card"><p>25. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q25" value="C"> Óvatos és pontos</label>
+      <label class="quiz-option"><input type="radio" name="q25" value="D"> Egyenes és célratörő</label>
+      <label class="quiz-option"><input type="radio" name="q25" value="I"> Optimista és feldobott</label>
+      <label class="quiz-option"><input type="radio" name="q25" value="S"> Elfogadó és megbízható</label>
+    </div>
+
+
+<div style="text-align: center; margin-top: 4rem;">
+      <button type="button" class="btn" onclick="calculateDisc()" style="font-size: 1.2rem; padding: 1rem 4rem;">Eredmény kiszámítása &rarr;</button>
+    </div>
+  </form>
+</section>
+
+<script>
+function calculateDisc() {
+  const form = document.getElementById('discQuiz');
+  const formData = new FormData(form);
+  let scores = { D: 0, I: 0, S: 0, C: 0 };
+  let answered = 0;
+
+  for (let value of formData.values()) {
+    scores[value]++;
+    answered++;
+  }
+
+  // Ellenőrzés, hogy mind a 25 kérdésre válaszoltak-e
+  if (answered < 25) {
+    alert(`Kérlek válaszold meg az összes kérdést! (Jelenleg: ${answered} / 25)`);
+    return;
+  }
+
+  // Átirányítás az új oldalra az eredményekkel az URL-ben!
+  const queryString = `?D=${scores.D}&I=${scores.I}&S=${scores.S}&C=${scores.C}`;
+  window.location.href = '/disc-eredmeny/' + queryString;
+}
+</script>

@@ -1,41 +1,82 @@
 ---
 layout: layouts/base.njk
-title: Welcome Home
-hero_title: "Fast. Simple. Static."
-hero_subtitle: "This site is powered by Eleventy and managed via Git."
-featured_image: "/assets/uploads/hero.jpg"
+title: Kezdőlap | Agyunk Titkai
+hero_title: "Utazás az Elme Mélyére"
+hero_subtitle: "Fedezd fel a rejtett mozgatórugókat, értsd meg a tudatalattid nyelvét, és vedd át az irányítást a saját életed felett."
 ---
 
 <section class="hero">
   <h1>{{ hero_title }}</h1>
   <p>{{ hero_subtitle }}</p>
-  <a href="/contact" class="btn">Get Started</a>
-</section>
-
-<section class="features">
-  <h2>Why this setup?</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Eleventy Speed</h3>
-      <p>Zero client-side JS by default. Your users get content instantly.</p>
-    </div>
-    <div class="card">
-      <h3>GitCMS Workflow</h3>
-      <p>Edit content in a UI; it commits directly to your repository.</p>
-    </div>
+  <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+    <a href="/about/" class="btn">Miért a pszichológia?</a>
+    <a href="/posts/" class="btn" style="background: transparent; border: 1px solid var(--primary); color: #fff; box-shadow: none;">Cikkek olvasása</a>
   </div>
 </section>
 
-<section class="latest-posts">
-  <h2>Latest Updates</h2>
-  <ul>
-    {%- for post in collections.post | reverse | limit(3) -%}
-      <li>
-        <a href="{{ post.url }}">{{ post.data.title }}</a> 
-        <span>— {{ post.date | postDate }}</span>
-      </li>
-    {%- else -%}
-      <li>No posts found yet. Start writing in the CMS!</li>
-    {%- endfor -%}
-  </ul>
+<section style="max-width: 800px; margin: 4rem auto;">
+  <blockquote>
+    "Az agy egy világ, amely sokkal hatalmasabb és titokzatosabb, mint a csillagos égbolt felettünk. Minden egyes gondolat egy új univerzum születése."
+    <em>— Santiago Ramón y Cajal, a modern idegtudomány atyja</em>
+  </blockquote>
+<section style="margin-bottom: 6rem;">
+  <div style="text-align: center; margin-bottom: 3.5rem;">
+    <h2 style="color: #fff; font-size: 2.5rem; margin-bottom: 0.5rem;">Miket fedezhetsz fel nálunk?</h2>
+    <p style="color: var(--text-muted); font-size: 1.15rem;">Pszichológiai témák, amik megváltoztatják a világlátásod.</p>
+  </div>
+  
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+    
+    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden;">
+      <div style="font-size: 2.5rem; margin-bottom: 1rem; background: rgba(129, 140, 248, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; border: 1px solid rgba(129, 140, 248, 0.2);">
+        🌌
+      </div>
+      <h3 style="color: #fff; margin-bottom: 1rem;">A Tudatalatti Hatalma</h3>
+      <p style="color: var(--text-muted); line-height: 1.7;">
+        A döntéseid <strong>több mint 90%-át</strong> a tudatalattid hozza meg. Ismerd meg a rejtett hiedelmeket, az álmok jelentését, és azt, hogyan programozhatod újra a mélyen gyökerező szokásaidat.
+      </p>
+    </div>
+
+    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden;">
+      <div style="font-size: 2.5rem; margin-bottom: 1rem; background: rgba(248, 113, 113, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; border: 1px solid rgba(248, 113, 113, 0.2);">
+        🧠
+      </div>
+      <h3 style="color: #fff; margin-bottom: 1rem;">Kognitív Csapdák</h3>
+      <p style="color: var(--text-muted); line-height: 1.7;">
+        Hogyan hozunk döntéseket? Miért csap be minket a saját memóriánk? Fedezd fel a <strong>kognitív torzításokat</strong>, amelyek miatt az agyunk gyakran logikátlan, mégis teljesen kiszámítható módon hibázik.
+      </p>
+    </div>
+
+    <div class="card" style="flex: 1 1 300px; max-width: 450px; position: relative; overflow: hidden;">
+      <div style="font-size: 2.5rem; margin-bottom: 1rem; background: rgba(74, 222, 128, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; border: 1px solid rgba(74, 222, 128, 0.2);">
+        🌊
+      </div>
+      <h3 style="color: #fff; margin-bottom: 1rem;">Érzelmi Iránytű</h3>
+      <p style="color: var(--text-muted); line-height: 1.7;">
+        Az érzelmek nem gyengeségek, hanem <strong>evolúciós adatcsomagok</strong>. Tanuld meg dekódolni a szorongást, a dühöt vagy a motivációvesztést, és használd őket eszközként a fejlődéshez.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section style="max-width: 800px; margin: 0 auto 6rem auto; background: var(--bg-card); padding: 3rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+  <h2 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 2.2rem; text-align: center;">Több vagy, mint a gondolataid</h2>
+    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">
+    A modern pszichológia egyik legfontosabb felfedezése, hogy nem vagyunk azonosak az agyunk által generált zajjal. Az elménk egy fantasztikus <strong>túlélőgép</strong>, amely folyamatosan veszélyeket keres, történeteket gyárt és megpróbál megvédeni minket a változástól.
+  </p>
+  <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">
+    A probléma ott kezdődik, amikor mindent <strong>készpénznek veszünk</strong>, amit ez a gép mond nekünk. Az ezen az oldalon található cikkek és leírások abban segítenek, hogy egy lépést hátralépj, és megfigyelőjévé válj a saját folyamataidnak. Ezt hívják a pszichológiában metakogníciónak – amikor a gondolkodásról gondolkodunk.
+  </p>
+</section>
+
+<section style="max-width: 800px; margin: 0 auto 4rem auto;">
+  <blockquote>
+    "Az inger és a reakció között van egy tér. Ebben a térben rejlik a szabadságunk és a hatalmunk, hogy megválasszuk a válaszunkat. A válaszunkban pedig a növekedésünk és a boldogságunk."
+    <em>— Viktor E. Frankl, pszichiáter, a logoterápia megalkotója</em>
+  </blockquote>
+  
+  <div style="text-align: center; margin-top: 3rem;">
+    <a href="/posts/" class="btn" style="font-size: 1.2rem; padding: 1rem 3rem;">Kezdd el az olvasást most</a>
+  </div>
 </section>
