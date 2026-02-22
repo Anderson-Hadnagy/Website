@@ -28,7 +28,6 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # Ha nincs package.json, ez a lépés nem fog hibázni, de az 11ty-nek kellhet
         run: |
           if [ -f package.json ]; then
             npm install
@@ -37,17 +36,23 @@ jobs:
           fi
 
       - name: Build Eleventy
-        # Megpróbáljuk kényszeríteni a buildet
-        run: npx @11ty/eleventy
+        # Itt megadjuk, hogy az 'src' mappából dolgozzon!
+        run: npx @11ty/eleventy --input=src --output=_site
 
-      - name: List files (Debug)
-        # Ez segít látni, mi történt a build után
-        run: ls -R
+      - name: Check for _site (Debug)
+        run: |
+          if [ -d "_site" ]; then
+            echo "A _site mappa sikeresen létrejött!"
+            ls -R _site
+          else
+            echo "HIBA: A _site mappa továbbra sem jött létre!"
+            ls -R
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Itt ellenőrizzük, hogy létezik-e a mappa, mielőtt feltöltenénk
           path: "_site"
 
   deploy:
