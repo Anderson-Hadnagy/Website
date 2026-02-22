@@ -217,6 +217,79 @@ permalink: /disc/
   </form>
 </section>
 
+---
+layout: layouts/base.njk
+title: DISC Személyiségteszt
+permalink: /disc/
+---
+
+<style>
+  .quiz-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+  .quiz-card p {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-main);
+    font-size: 1.1rem;
+  }
+  .quiz-option:hover {
+    background: rgba(129, 140, 248, 0.1);
+    border-color: var(--primary);
+    transform: translateX(5px);
+  }
+  .quiz-option input[type="radio"] {
+    accent-color: var(--primary);
+    transform: scale(1.3);
+    margin: 0;
+    cursor: pointer;
+  }
+</style>
+
+<section class="hero" style="padding: 4rem 2rem; background: transparent; border: none; box-shadow: none; margin-bottom: 0;">
+  <h1 style="font-size: 3.5rem; color: #fff; margin-bottom: 1rem;">A DISC Modell</h1>
+  <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Tudd meg, melyik személyiségtípusba tartozol: Domináns (Piros), Befolyásoló (Sárga), Stabil (Zöld) vagy Szabálytisztelő (Kék)!</p>
+</section>
+
+<section style="max-width: 760px; margin: 0 auto; padding: 2rem 2rem 6rem 2rem;">
+  
+  <div style="text-align: center; margin-bottom: 3rem;">
+    <h2 style="color: #fff; font-size: 2rem; margin-bottom: 0.5rem;">25 Kérdéses Mélyteszt</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Minden kérdésnél válaszd ki azt a tulajdonságot, amelyik a <strong>leginkább</strong> jellemző rád.</p>
+  </div>
+  
+  <form id="discQuiz">
+    <div class="quiz-card"><p>1. Melyik illik rád a legjobban?</p>
+      <label class="quiz-option"><input type="radio" name="q1" value="C"> Gondos és elemző</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="S"> Állhatatos és odafigyelő</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="I"> Befolyásoló és teátrális</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="D"> Jó stratéga és nyomuló</label>
+    </div>
+    <div style="text-align: center; margin-top: 4rem;">
+      <button type="button" class="btn" onclick="calculateDisc()" style="font-size: 1.2rem; padding: 1rem 4rem;">Eredmény kiszámítása &rarr;</button>
+    </div>
+  </form>
+</section>
+
 <script>
 function calculateDisc() {
   const form = document.getElementById('discQuiz');
@@ -229,14 +302,17 @@ function calculateDisc() {
     answered++;
   }
 
-  // Ellenőrzés, hogy mind a 25 kérdésre válaszoltak-e
   if (answered < 25) {
     alert(`Kérlek válaszold meg az összes kérdést! (Jelenleg: ${answered} / 25)`);
     return;
   }
 
-  // Átirányítás az új oldalra az eredményekkel az URL-ben!
   const queryString = `?D=${scores.D}&I=${scores.I}&S=${scores.S}&C=${scores.C}`;
-  window.location.href = '/disc-eredmeny/' + queryString;
+  
+  /** * GITHUB FIX: Use Nunjucks to inject the pathPrefix-aware URL.
+   * This will output "/Website/disc-eredmeny/" on GitHub.
+   */
+  const resultPage = "{{ '/disc-eredmeny/' | url }}";
+  window.location.href = resultPage + queryString;
 }
 </script>
