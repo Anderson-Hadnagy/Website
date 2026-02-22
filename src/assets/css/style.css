@@ -138,17 +138,25 @@ nav a:hover {
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* This centers the items on every row */
   gap: 2rem;
 }
 
 .card {
+  /* This ensures cards stay a consistent size and don't stretch 
+     to fill the whole row when one wraps. */
+  flex: 0 1 400px; 
+  min-width: 300px;
+  
+  /* Your existing styles */
+  position: relative;
+  overflow: hidden;
   background: var(--bg-card);
-  padding: 2.5rem;
+  padding: 2rem;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
 .card:hover {
