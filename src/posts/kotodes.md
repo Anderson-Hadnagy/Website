@@ -1,6 +1,6 @@
 ---
 title: "Láthatatlan kötelékek: Miért vonzzuk be mindig ugyanazt a típust?"
-date: 2026-03-05
+date: 2026-02-08
 layout: layouts/post.njk
 tags: post
 image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1600&auto=format&fit=crop"
