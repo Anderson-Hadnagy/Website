@@ -1,31 +1,33 @@
 module.exports = function(eleventyConfig) {
   
-  // 1. The Year Filter (Use {{ "" | year }} in your HTML)
+  // 1. Év szűrő
   eleventyConfig.addFilter("year", () => {
     return new Date().getFullYear();
   });
 
-  // 2. The Limit Filter
+  // 2. Limit szűrő (a kezdőlaphoz)
   eleventyConfig.addFilter("limit", (array, limit) => {
     return array.slice(0, limit);
   });
 
-  // 3. The Date Filter (for blog posts)
+  // 3. Dátum szűrő
   eleventyConfig.addFilter("postDate", (dateObj) => {
-    return new Date(dateObj).toLocaleDateString('en-us', {
+    return new Date(dateObj).toLocaleDateString('hu-HU', {
       year: "numeric",
       month: "short",
       day: "numeric"
     });
   });
 
+  // FÁJLOK MÁSOLÁSA (Hogy a képek és a stílus is átmenjen)
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
+  eleventyConfig.addPassthroughCopy("src/style.css"); // Biztonság kedvéért
 
-return {
+  return {
     dir: {
       input: "src",
-      output: "_site" // "public" helyett "_site" kell, hogy egyezzen a GitHub-al
+      output: "_site" // Ez kell a GitHub Pages-hez!
     }
   };
 };
