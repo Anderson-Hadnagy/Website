@@ -1,23 +1,27 @@
+const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+
 module.exports = function(eleventyConfig) {
-  // 1. Szűrők (év, limit, dátum)
+  // 1. Add the Base Plugin
+  eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+
+  // Your existing filters...
   eleventyConfig.addFilter("year", () => new Date().getFullYear());
   eleventyConfig.addFilter("limit", (array, limit) => array.slice(0, limit));
   eleventyConfig.addFilter("postDate", (dateObj) => {
-    return new Date(dateObj).toLocaleDateString('hu-HU', {
+    return new Date(dateObj).toLocaleDateString('en-us', {
       year: "numeric", month: "short", day: "numeric"
     });
   });
 
-  // 2. CSS és Képek másolása (A mappaszerkezeted alapján)
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
 
-return {
-  dir: {
-    input: "src",
-    output: "public"
-  },
-  // ADD THIS LINE (Match your repo name exactly):
-  pathPrefix: "/Website/" 
-};
+  return {
+    dir: {
+      input: "src",
+      output: "public"
+    },
+    // 2. Add the pathPrefix so the plugin knows your repo name
+    pathPrefix: "/Website/" 
+  };
 };
