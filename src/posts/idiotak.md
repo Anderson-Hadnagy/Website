@@ -1,6 +1,6 @@
 ---
 title: "Idiótákkal körülvéve? Így értsd meg a környezetedet"
-date: 2026-03-15
+date: 2026-02-15
 layout: layouts/post.njk
 tags: post
 image: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=1600&auto=format&fit=crop"
