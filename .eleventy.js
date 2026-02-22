@@ -12,12 +12,12 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
 
-  return {
-    // FONTOS: Ide a GitHub repód nevét írd be két per jel közé!
-    pathPrefix: "/Website/", 
-    dir: {
-      input: "src",
-      output: "_site" // Maradjunk a _site-nál, mert a GitHub Action ezt keresi
-    }
-  };
+return {
+  dir: {
+    input: "src",
+    output: "public"
+  },
+  // ADD THIS LINE (Match your repo name exactly):
+  pathPrefix: "/Website/" 
+};
 };
