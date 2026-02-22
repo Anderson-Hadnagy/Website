@@ -14,12 +14,14 @@ permalink: /posts/
   {%- for post in collections.post | reverse -%}
     <article class="card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 0; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); background: var(--bg-card); border-radius: 20px;">
       
-      <a href="{{ post.url }}" style="text-decoration: none; display: block; position: relative; overflow: hidden; height: 220px;">
+      {# Using | url ensures 11ty applies the pathPrefix properly #}
+      <a href="{{ post.url | url }}" style="text-decoration: none; display: block; position: relative; overflow: hidden; height: 220px;">
         {% if post.data.image %}
-          <img src="{{ post.data.image }}" alt="{{ post.data.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          {# Images must have a leading slash in your markdown (e.g., /assets/img/...) #}
+          <img src="{{ post.data.image | url }}" alt="{{ post.data.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
         {% else %}
           <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1e293b, #312e81); transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; opacity: 0.1;">📝</div>
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; opacity: 0.1;">📝</div>
           </div>
         {% endif %}
       </a>
@@ -32,7 +34,7 @@ permalink: /posts/
           </span>
           
           <h3 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.6rem; line-height: 1.3;">
-            <a href="{{ post.url }}" style="color: #fff; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#fff'">
+            <a href="{{ post.url | url }}" style="color: #fff; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#fff'">
               {{ post.data.title }}
             </a>
           </h3>
@@ -42,7 +44,7 @@ permalink: /posts/
           </p>
         </div>
 
-        <a href="{{ post.url }}" style="color: #fff; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.2s, color 0.2s; font-size: 1.1rem;" onmouseover="this.style.gap='1rem'; this.style.color='#a5b4fc'" onmouseout="this.style.gap='0.5rem'; this.style.color='#fff'">
+        <a href="{{ post.url | url }}" style="color: #fff; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.2s, color 0.2s; font-size: 1.1rem;" onmouseover="this.style.gap='1rem'; this.style.color='#a5b4fc'" onmouseout="this.style.gap='0.5rem'; this.style.color='#fff'">
           Cikk elolvasása <span style="font-size: 1.4rem;">&rarr;</span>
         </a>
         
