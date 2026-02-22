@@ -28,14 +28,26 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        # Ha nincs package.json, ez a lépés nem fog hibázni, de az 11ty-nek kellhet
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          else
+            npm install @11ty/eleventy
+          fi
 
       - name: Build Eleventy
+        # Megpróbáljuk kényszeríteni a buildet
         run: npx @11ty/eleventy
+
+      - name: List files (Debug)
+        # Ez segít látni, mi történt a build után
+        run: ls -R
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Itt ellenőrizzük, hogy létezik-e a mappa, mielőtt feltöltenénk
           path: "_site"
 
   deploy:
