@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }} | Agyunk Titkai</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>{{ title }} | Agyunk Titkai </title>
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 <nav>
-  <a href="{{ '/' | url }}"><strong>Agyunk Titkai</strong></a>
+  <a href="/"><strong>Agyunk Titkai</strong></a> 
   <ul>
-    <li><a href="{{ '/about/' | url }}">Miért a Pszichológia?</a></li> 
-    <li><a href="{{ '/posts/' | url }}">Cikkek</a></li>
-    <li><a href="{{ '/disc/' | url }}">DISC Teszt</a></li> 
+    <li><a href="/about/">Miért a Pszichológia?</a></li> 
+    <li><a href="/posts/">Cikkek</a></li> 
+    <li><a href="/disc/">DISC Teszt</a></li> 
   </ul>
 </nav>
 
   <main>
-    {{ content | safe }}
+    {{ content | safe }} [cite: 3]
   </main>
 
 <footer>
-  <p>&copy; {{ "" | year }} Built with 11ty</p>
+  <p>&copy; {{ "" | year }} Built with 11ty </p>
 </footer>
 </body>
 </html>
