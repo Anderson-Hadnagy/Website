@@ -42,10 +42,9 @@ permalink: /disc-eredmeny/
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: center;
+    align-items: start; /* Changed to start for better alignment with longer lists */
   }
 
-  /* SZEKTOR ELRENDEZÉS: 3 oszlopos rács */
   .sector-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -79,11 +78,30 @@ permalink: /disc-eredmeny/
     line-height: 1.7;
   }
 
+  /* Progress Bar Styles */
   .bar-container {
-    width: 100%; background: rgba(255,255,255,0.05); border-radius: 50px; height: 18px; overflow: hidden;
+    width: 100%; 
+    background: rgba(255,255,255,0.05); 
+    border-radius: 50px; 
+    height: 14px; 
+    overflow: hidden;
+    margin-top: 0.5rem;
   }
   .bar-fill {
-    height: 100%; border-radius: 50px; transition: width 1.5s ease-out; width: 0%;
+    height: 100%; 
+    border-radius: 50px; 
+    transition: width 1.5s ease-out; 
+    width: 0%;
+  }
+
+  /* Tag style for Fears/Keywords */
+  .tag-box {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
   }
 
   @media (max-width: 1100px) { .sector-grid { grid-template-columns: 1fr 1fr; } }
@@ -100,13 +118,17 @@ permalink: /disc-eredmeny/
 
     <h2 class="sector-title">Vizuális Analitika</h2>
     <div class="result-card grid-stats">
+      
       <div>
-        <h3 style="color: #fff; margin-bottom: 2rem;">Százalékos eloszlás</h3>
+        <h3 style="color: #fff; margin-bottom: 2rem;">Százalékos profilod</h3>
         <div id="percentageBars"></div>
       </div>
+
       <div>
         <h3 style="color: #fff; margin-bottom: 2rem; text-align: center;">Dinamikus Pozicionálás</h3>
-        <canvas id="discChart" width="100" height="100"></canvas>
+        <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 20px;">
+          <canvas id="discChart" width="100" height="100"></canvas>
+        </div>
       </div>
     </div>
 
@@ -154,12 +176,12 @@ permalink: /disc-eredmeny/
       </div>
       <div class="info-block">
         <h4 id="h4_9">💼 Karrier</h4>
-        <p id="jobsText"></p>
+        <div id="jobsText"></div>
       </div>
     </div>
 
     <div style="text-align: center; margin-top: 5rem;">
-      <a href="/disc/" class="btn" style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-main);">&larr; Teszt újrakitöltése</a>
+      <a href="/disc/" class="btn" style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-main); padding: 15px 30px; border-radius: 50px; text-decoration: none; transition: 0.3s;">&larr; Teszt újrakitöltése</a>
     </div>
   </div>
 </section>
@@ -167,89 +189,102 @@ permalink: /disc-eredmeny/
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
+  
+  // Basic validation
   if(!params.has('D')) { window.location.href = '/disc/'; return; }
 
-  const scores = { D: parseInt(params.get('D')), I: parseInt(params.get('I')), S: parseInt(params.get('S')), C: parseInt(params.get('C')) };
+  // Parse Scores
+  const scores = { 
+    D: parseInt(params.get('D')) || 0, 
+    I: parseInt(params.get('I')) || 0, 
+    S: parseInt(params.get('S')) || 0, 
+    C: parseInt(params.get('C')) || 0 
+  };
+  
   const total = scores.D + scores.I + scores.S + scores.C;
 
-const colorsData = {
+  // Expanded Data Object
+  const colorsData = {
     D: { 
       name: 'PIROS (Domináns)', color: '#ef4444', 
-      desc: "Te egy született hajtóerő vagy, aki számára a világ egy megoldandó feladvány vagy egy legyőzendő akadálypálya. <strong>Rendkívül eredményorientált</strong>, határozott és magabiztos személyiség vagy. Nem ijedsz meg a felelősségtől, sőt, krízishelyzetben te vagy az, aki ösztönösen átveszi az irányítást, miközben mások még csak keresik a kiutat. Az idő számodra a legértékesebb valuta, ezért gyűlölöd a felesleges köröket és a határozatlanságot.",
-      perception: "<strong>Ahogy te látod magad:</strong> Céltudatos, logikus, gyors és őszinte vezető, aki nem fél kimondani a kellemetlen igazságokat a haladás érdekében. <br><br><strong>Ahogy mások láthatnak:</strong> Egy domináns napodon távolságtartónak, arrogánsnak, türelmetlennek vagy akár agresszívnek is tűnhetsz. Sokan úgy érezhetik, hogy átgázolsz rajtuk a cél érdekében.",
-      motivation: "A <strong>győzelem, a kontroll és a konkrét eredmények</strong> éltetnek. Motivál a hatalom, a függetlenség és az a tudat, hogy te alakítod a sorsodat, nem pedig elszenveded a körülményeket.",
-      comm: "A legnagyobb fejlődési lehetőséged a türelem és az empátia. Tanulj meg lassítani a többiek kedvéért! Mielőtt kiadnál egy parancsot, szánj időt arra, hogy megkérdezd mások véleményét is – ez nem gyengeség, hanem stratégiai bölcsesség.",
-      stressImmediate: "<strong>Hirtelen stressz:</strong> Azonnali dühkitöréssel, emelt hanggal vagy mániákus cselekvéssel reagálsz. Sokszor elfojtod mások szavát, mert úgy érzed, csak te látod a megoldást.",
-      stressPressure: "<strong>Tartós nyomás alatt:</strong> Teljesen 'csőlátásod' lesz. Kizárólag a feladatra fókuszálsz, az emberi igényeket és az érzelmeket teljesen ignorálod, ami konfliktusokhoz vezet.",
-      stressLongTerm: "<strong>Krónikus stressz/Kiégés:</strong> Cinikussá válsz, elszigeteled magad mindenkitől, akit 'lassúnak' vagy 'alkalmatlannak' ítélsz. Végül egyedül maradsz a harcban, ami mentális kimerüléshez vezet.",
-      conflict: "A konfliktus számodra egy verseny, amit meg kell nyerni. Racionális érvekkel és nyers erővel dominálsz, de vigyázz: egy vita megnyerése nem jelenti a probléma valódi megoldását.",
-      relationship: "Erős, önálló társra van szükséged, aki nem ijed meg a karakteredtől. Tanuld meg, hogy a gyengédség és a sebezhetőség nem hiba, hanem a legmélyebb intimitás alapja.",
-      jobs: "<ul><li>Vállalkozó / Cégvezető</li><li>Projektmenedzser / Krízismenedzser</li><li>Ügyvéd / Katonai vezető</li><li>Értékesítési igazgató</li></ul>"
+      keywords: "Eredmény, Irányítás, Kihívás",
+      motto: "Csináljuk meg most!",
+      fear: "Irányítás elvesztése, Kudarc",
+      desc: "Te egy született hajtóerő vagy, aki számára a világ egy megoldandó feladvány vagy egy legyőzendő akadálypálya. <strong>Rendkívül eredményorientált</strong>, határozott és magabiztos személyiség vagy. Nem ijedsz meg a felelősségtől, sőt, krízishelyzetben te vagy az, aki ösztönösen átveszi az irányítást.",
+      perception: "<strong>Ahogy te látod magad:</strong> Céltudatos, logikus, gyors és őszinte vezető.<br><br><strong>Ahogy mások láthatnak:</strong> Távolságtartónak, arrogánsnak vagy türelmetlennek.",
+      motivation: "A <strong>győzelem, a kontroll és a konkrét eredmények</strong> éltetnek.",
+      comm: "Légy türelmesebb! Hallgass meg másokat végig, mielőtt döntesz.",
+      stressImmediate: "Dühkitörés, követelőzés, mások szavának elfojtása.",
+      stressPressure: "Csőlátás: csak a feladat számít, az emberek nem.",
+      stressLongTerm: "Kiégés és elszigetelődést, mert senkit nem tartasz elég jónak.",
+      conflict: "A konfliktus egy verseny, amit meg kell nyerni.",
+      relationship: "Erős, önálló társra van szükséged, aki nem ijed meg tőled.",
+      jobs: "<ul><li>Vállalkozó / Cégvezető</li><li>Projektmenedzser</li><li>Ügyvéd</li><li>Értékesítési vezető</li></ul>"
     },
     I: { 
       name: 'SÁRGA (Befolyásoló)', color: '#eab308', 
-      desc: "Te vagy a társaság motorja, az örök optimista, aki bármilyen unalmas szobát képes bevilágítani a jelenlétével. <strong>Imádod az embereket</strong>, a pörgést és a folyamatos impulzusokat. Zseniális meggyőzőképességgel rendelkezel, könnyen teremtesz kapcsolatokat, és te vagy az, aki képes lelkesíteni egy egész csapatot egy új ötletért. Számodra az élet egy kaland, amit meg kell osztani másokkal.",
-      perception: "<strong>Ahogy te látod magad:</strong> Barátságos, inspiráló, kreatív és nyitott ember, aki mindenben meglátja a lehetőséget és a jót. <br><br><strong>Ahogy mások láthatnak:</strong> Rosszabb napokon felszínesnek, megbízhatatlannak, túl hangosnak vagy figyelemhajhásznak tűnhetsz. Sokan érezhetik úgy, hogy többet beszélsz, mint amennyit cselekszel.",
-      motivation: "Az <strong>elismerés, a népszerűség és a társasági élmények</strong> hajtanak. Motivál, ha másokra hatással lehetsz, ha dicsérnek, és ha elkerülheted a monoton rutint.",
-      comm: "Gyakorold az aktív hallgatást! Ne csak a saját mondandódra fókuszálj, miközben a másik beszél. Tanuld meg befejezni is a projekteket, ne csak elkezdeni – a hitelességed kulcsa a következetességben rejlik.",
-      stressImmediate: "<strong>Hirtelen stressz:</strong> Pánikszerű beszédbe kezdesz, vagy túlzott érzelmi reakcióid vannak. Gyakran humorral próbálod elviccelni a bajt, ami komoly helyzetben irritáló lehet.",
-      stressPressure: "<strong>Tartós nyomás alatt:</strong> Teljesen elveszíted a fókuszt. Impulzív döntéseket hozol, kapkodsz, és elkezdesz menekülni a felelősség elől, mindenbe belefogsz, de semmit nem fejezel be.",
-      stressLongTerm: "<strong>Krónikus stressz/Kiégés:</strong> Elveszíted a 'ragyogásodat'. Egy korábban élettel teli Sárga ilyenkor csendessé, pesszimistává és mélyen kedveszegettté válik, úgy érzi, senki sem szereti.",
-      conflict: "Sármmal és rábeszéléssel próbálod elsimítani a bajt. Ha ez nem megy, érzelmileg túlfűtötté válsz, és a tények helyett a sértett érzéseidre fókuszálsz.",
-      relationship: "Izgalomra, megerősítésre és spontaneitásra vágysz. Olyan társ kell melléd, aki horgonyként funkcionál a szétszórtságodban, de benne van minden őrült ötletedben.",
-      jobs: "<ul><li>Marketing / PR szakértő</li><li>Rendezvényszervező / Szórakoztatóipar</li><li>Tréner / Motivációs előadó</li><li>Utazásszervező</li></ul>"
+      keywords: "Lelkesedés, Társaság, Optimizmus",
+      motto: "Csináljuk együtt és legyen jó buli!",
+      fear: "Elutasítás, Unalom, Népszerűség vesztés",
+      desc: "Te vagy a társaság motorja, az örök optimista. <strong>Imádod az embereket</strong>, a pörgést és a folyamatos impulzusokat. Zseniális meggyőzőképességgel rendelkezel, könnyen teremtesz kapcsolatokat, és te vagy az, aki képes lelkesíteni egy egész csapatot.",
+      perception: "<strong>Ahogy te látod magad:</strong> Barátságos, inspiráló, kreatív és nyitott.<br><br><strong>Ahogy mások láthatnak:</strong> Felszínesnek, kapkodónak vagy túl hangosnak.",
+      motivation: "Az <strong>elismerés, a népszerűség és az élmények</strong> hajtanak.",
+      comm: "Gyakorold az aktív hallgatást és a részletekre való odafigyelést!",
+      stressImmediate: "Érzelmi kitörés, szóáradat, viccelődés komoly helyzetben.",
+      stressPressure: "Szétszórtság, kapkodás, ígéretek be nem tartása.",
+      stressLongTerm: "Pesszimizmus, kedvtelenség, visszahúzódás.",
+      conflict: "Megpróbálod elsimítani a bajt, vagy érzelmileg megsértődsz.",
+      relationship: "Izgalomra és állandó megerősítésre vágysz.",
+      jobs: "<ul><li>Marketing / PR</li><li>Rendezvényszervező</li><li>Tréner / Előadó</li><li>Utazásszervező</li></ul>"
     },
     S: { 
       name: 'ZÖLD (Stabil)', color: '#22c55e', 
-      desc: "Nyugodt, türelmes és végtelenül megbízható személyiség vagy, aki a stabilitást és a békét keresi minden helyzetben. Számodra a <strong>harmónia és az őszinteség</strong> nem csak szavak, hanem alapvető létszükségletek. Te vagy a tökéletes csapatjátékos és a legjobb hallgatóság; lojalitásod megingathatatlan, és mindig lehet számítani a segítőkészségedre.",
-      perception: "<strong>Ahogy te látod magad:</strong> Megbízható, türelmes, lojális és békés segítő, aki vigyáz az emberi kapcsolatokra. <br><br><strong>Ahogy mások láthatnak:</strong> Néha túl passzívnak, döntésképtelennek vagy a változásokkal szemben makacsul ellenállónak tűnhetsz. Sokan érezhetik, hogy nem mondod ki, amit valójában gondolsz.",
-      motivation: "A <strong>biztonság, a stabilitás és a hasznosság érzése</strong> éltet. Motivál a kiszámítható környezet, az őszinte elismerés és az, ha egy támogató közösség része lehetsz.",
-      comm: "Tanulj meg nemet mondani! Nem kell mindenkit megmentened a saját energiád rovására. Mondd ki a véleményed akkor is, ha az konfliktushoz vezethet – a belső békéd fontosabb a látszólagos külső nyugalomnál.",
-      stressImmediate: "<strong>Hirtelen stressz:</strong> Teljesen lefagysz. Úgy teszel, mintha semmi sem történt volna, és próbálsz láthatatlanná válni, amíg el nem ül a vihar a környezetedben.",
-      stressPressure: "<strong>Tartós nyomás alatt:</strong> Passzív-agresszívvá és rendkívül makaccsá válsz. Csendben ellenállsz minden hirtelen változtatásnak, és belül gyűjtöd a sérelmeket.",
-      stressLongTerm: "<strong>Krónikus stressz/Kiégés:</strong> Mártírszerepbe kerülsz. Fizikai tüneteid (gyomorfájás, kimerültség) jelentkezhetnek a sok elfojtott feszültség miatt. Teljesen elveszíted a motivációdat a segítségnyújtásra.",
-      conflict: "Zsigereidben kerülöd a konfrontációt. Inkább engedsz a másiknak, csak ne legyen hangos szó, de ez hosszú távon a saját önbecsülésed rovására megy.",
-      relationship: "Hűséget, mély elköteleződést és érzelmi biztonságot keresel. Nem szereted a játékokat; számodra a szeretet a folyamatos, csendes jelenlétben és gondoskodásban nyilvánul meg.",
-      jobs: "<ul><li>HR szakértő / Tanácsadó</li><li>Tanár / Oktató</li><li>Pszichológus / Terapeuta</li><li>Egészségügyi dolgozó</li></ul>"
+      keywords: "Nyugalom, Támogatás, Lojalitás",
+      motto: "Csináljuk békésen és biztosan.",
+      fear: "Hirtelen változás, Biztonság elvesztése",
+      desc: "Nyugodt, türelmes és végtelenül megbízható személyiség vagy. Számodra a <strong>harmónia és az őszinteség</strong> alapvető létszükségletek. Te vagy a tökéletes csapatjátékos, lojalitásod megingathatatlan.",
+      perception: "<strong>Ahogy te látod magad:</strong> Megbízható, türelmes, lojális segítő.<br><br><strong>Ahogy mások láthatnak:</strong> Túl passzívnak, lassúnak vagy makacsnak.",
+      motivation: "A <strong>biztonság, a stabilitás és a kiszámíthatóság</strong> éltet.",
+      comm: "Tanulj meg nemet mondani és kiállni a saját érdekeidért!",
+      stressImmediate: "Lefagyás, passzivitás, behódolás a békességért.",
+      stressPressure: "Passzív-agresszivitás, makacs ellenállás.",
+      stressLongTerm: "Mártírszerep és pszichoszomatikus tünetek.",
+      conflict: "Kerülöd a konfrontációt, inkább engedsz.",
+      relationship: "Hűséget, nyugalmat és mély elköteleződést keresel.",
+      jobs: "<ul><li>HR szakértő</li><li>Tanár / Terapeuta</li><li>Ügyfélszolgálat</li><li>Egészségügyi dolgozó</li></ul>"
     },
     C: { 
       name: 'KÉK (Szabálytisztelő)', color: '#3b82f6', 
-      desc: "Precíz, analitikus és mélyen logikus gondolkodású vagy, aki a világot adatok, összefüggések és minőségi sztenderdek szerint szemléli. Számodra a <strong>pontosság és a megalapozottság</strong> mindennél többet ér. Rád a legbonyolultabb, legaprólékosabb feladatokat is biztonsággal rá lehet bízni, mert addig nem nyugszol, amíg minden részlet a helyére nem kerül.",
-      perception: "<strong>Ahogy te látod magad:</strong> Objektív, racionális, felkészült és magas minőséget képviselő szakértő, aki csak a tényekre hagyatkozik. <br><br><strong>Ahogy mások láthatnak:</strong> Hidegnek, távolságtartónak, szőrszálhasogatónak vagy túlzottan kritikusnak hathatsz. Sokan érezhetik, hogy a számok fontosabbak neked, mint az emberek.",
-      motivation: "A <strong>pontosság, a rend, a logika és a megértés</strong> motivál. Hajt a vágy, hogy ne hibázz, és hogy minden döntésed kikezdhetetlen tényeken alapuljon.",
-      comm: "Ne feledd: az érzelmek is valid adatok! Egy kommunikációs helyzetben nem mindig a leglogikusabb érv a nyerő. Próbálj meg néha lazítani a sztenderdjeiden, és ne várj el mindenkitől ugyanolyan perfekcionizmust.",
-      stressImmediate: "<strong>Hirtelen stressz:</strong> Totális visszavonulás és bezárkózás. Elkezded mániákusan elemezni a hiba forrását, és érzelmileg teljesen elérhetetlenné válsz.",
-      stressPressure: "<strong>Tartós nyomás alatt:</strong> 'Analízis-paralízisbe' esel. Elveszel a mikroszkopikus részletekben, és képtelen vagy döntést hozni, mert rettegsz egy esetleges hibás kimeneteltől.",
-      stressLongTerm: "<strong>Krónikus stressz/Kiégés:</strong> Teljes izoláció. Úgy érzed, senki sem elég kompetens vagy precíz körülötted, ezért minden feladatot magadra vallasz, és egy ellenséges, irracionális helynek látod a világot.",
-      conflict: "A vitákat matematikai egyenletként kezeled. Tényekkel és kikezdhetetlen logikával érkezel, de teljesen lefagysz, ha a másik fél érzelmileg reagál vagy sírni kezd.",
-      relationship: "Lassan és megfontoltan köteleződsz el. Számodra a szeretet a rendben, a kiszámíthatóságban és a párod dolgainak (pénzügyek, technika) precíz rendbentartásában nyilvánul meg.",
-      jobs: "<ul><li>Mérnök / Szoftverfejlesztő</li><li>Könyvelő / Pénzügyi elemző</li><li>Minőségbiztosítási szakértő</li><li>Kutatóorvos / Tudós</li></ul>"
+      keywords: "Precizitás, Elemzés, Logika",
+      motto: "Csináljuk meg tökéletesen.",
+      fear: "Kritika, Hibázás, Rendetlenség",
+      desc: "Precíz, analitikus és mélyen logikus gondolkodású vagy. Számodra a <strong>pontosság és a tények</strong> mindennél többet érnek. Rád a legbonyolultabb feladatokat is rá lehet bízni, mert addig nem nyugszol, amíg minden részlet a helyére nem kerül.",
+      perception: "<strong>Ahogy te látod magad:</strong> Objektív, felkészült, minőségi szakértő.<br><br><strong>Ahogy mások láthatnak:</strong> Hidegnek, szőrszálhasogatónak vagy kritikusnak.",
+      motivation: "A <strong>pontosság, a rend és a logika</strong> motivál.",
+      comm: "Fogadd el, hogy a 'jó' néha elég, nem kell mindig a 'tökéletes'.",
+      stressImmediate: "Visszavonulás, bezárkózás, mániákus elemzés.",
+      stressPressure: "Analízis-paralízis: képtelen vagy dönteni a félelemtől.",
+      stressLongTerm: "Teljes izoláció és ellenséges kritika mindenki felé.",
+      conflict: "Tényekkel vitázol, lefagysz az érzelmektől.",
+      relationship: "Kiszámíthatóságot és intellektuális társat keresel.",
+      jobs: "<ul><li>Mérnök / IT</li><li>Pénzügyi elemző</li><li>Minőségbiztosítás</li><li>Kutató / Tudós</li></ul>"
     }
   };
 
-  const sorted = Object.keys(scores).map(key => ({ key, score: scores[key], percent: Math.round((scores[key] / total) * 100) })).sort((a, b) => b.score - a.score);
+  // Sort scores to find Dominant and order the bars
+  const sorted = Object.keys(scores)
+    .map(key => ({ key, score: scores[key], percent: Math.round((scores[key] / total) * 100) }))
+    .sort((a, b) => b.score - a.score);
+
   const dom = colorsData[sorted[0].key];
 
-  // UI Kitöltés
-  document.getElementById('mainResultTitle').innerText = "Te a " + dom.name + " típus vagy!";
-  document.getElementById('mainResultTitle').style.color = dom.color;
-  document.getElementById('mainResultDesc').innerHTML = dom.desc;
-  document.getElementById('mainCard').style.borderTop = `6px solid ${dom.color}`;
-
-  // Szekciók színezése és tartalom
-  for(let i=1; i<=9; i++) { 
-    const h4 = document.getElementById('h4_'+i);
-    h4.style.color = dom.color;
-    h4.style.borderBottom = `1px solid ${dom.color}33`;
-  }
-  
-// --- 1. UI elemek kitöltése ---
+  // --- 1. Fill Main UI Elements ---
   document.getElementById('mainResultTitle').innerText = "Te a " + dom.name + " típus vagy!";
   document.getElementById('mainResultTitle').style.color = dom.color;
   document.getElementById('mainResultDesc').innerHTML = dom.desc;
   document.getElementById('mainCard').style.borderTop = `8px solid ${dom.color}`;
 
-  // Szöveges blokkok feltöltése
+  // Fill Text Blocks
   document.getElementById('perceptionText').innerHTML = dom.perception;
   document.getElementById('motivationText').innerHTML = dom.motivation;
   document.getElementById('commText').innerHTML = dom.comm;
@@ -260,31 +295,66 @@ const colorsData = {
   document.getElementById('relationshipText').innerHTML = dom.relationship;
   document.getElementById('jobsText').innerHTML = dom.jobs;
 
+  // Colorize Sector Headings
+  for(let i=1; i<=9; i++) { 
+    const h4 = document.getElementById('h4_'+i);
+    if(h4) {
+      h4.style.color = dom.color;
+      h4.style.borderBottom = `1px solid ${dom.color}33`;
+    }
+  }
+
   document.getElementById('resultsContainer').style.display = 'block';
 
-  // --- 2. Százalékos sávok generálése ---
+  // --- 2. Generate Expanded Percentage Bars ---
   const barsContainer = document.getElementById('percentageBars');
+  barsContainer.innerHTML = ''; // Reset
+
   sorted.forEach(item => {
     const c = colorsData[item.key];
+    // Reduce opacity for traits with very low scores to visualize dominance better
+    const opacity = item.percent > 20 ? 1 : 0.7;
+
     barsContainer.innerHTML += `
-      <div style="margin-bottom: 2.5rem;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-          <strong style="color: #fff; font-size: 1.2rem;">${c.name}</strong>
-          <span style="font-weight: bold; color: ${c.color};">${item.percent}%</span>
+      <div style="margin-bottom: 2.5rem; opacity: ${opacity};">
+        
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; align-items: flex-end;">
+          <strong style="color: #fff; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">
+            ${c.name}
+          </strong>
+          <span style="font-weight: 800; font-size: 1.2rem; color: ${c.color};">${item.percent}%</span>
         </div>
+        
         <div class="bar-container">
-          <div class="bar-fill" style="background: ${c.color}; box-shadow: 0 0 20px ${c.color}66;" data-width="${item.percent}%"></div>
+          <div class="bar-fill" style="background: ${c.color}; box-shadow: 0 0 15px ${c.color}40;" data-width="${item.percent}%"></div>
         </div>
+
+        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.9rem; color: var(--text-muted); gap: 1rem;">
+          <div style="flex: 1;">
+             <span style="color:${c.color}; font-weight:bold;">➞</span> ${c.keywords}
+          </div>
+          <div style="flex: 1; text-align: right; font-style: italic; opacity: 0.8;">
+            "${c.motto}"
+          </div>
+        </div>
+        
+        ${item.percent > 15 ? `
+        <div style="margin-top: 6px;">
+           <span class="tag-box" style="border: 1px solid ${c.color}44; color: #ccc;">
+             ⚠️ Félelem: <span style="color: #fff;">${c.fear}</span>
+           </span>
+        </div>` : ''}
+        
       </div>`;
   });
   
-  // Animáció indítása
+  // Trigger Animation
   setTimeout(() => {
     document.querySelectorAll('.bar-fill').forEach(f => f.style.width = f.dataset.width);
   }, 100);
 
-  // --- 3. CHART.JS GRAFIKON TENGELYEMELÉSSEL ---
-  // Koordináták kiszámítása
+  // --- 3. Chart.js Graph ---
+  // Coordinates: X = Active vs Passive (D+I - S+C), Y = Task vs People (D+C - I+S)
   let xCoord = (scores.D + scores.I) - (scores.C + scores.S);
   let yCoord = (scores.D + scores.C) - (scores.I + scores.S);
 
@@ -303,33 +373,37 @@ const colorsData = {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: true, // keeps it square
+      layout: { padding: 10 },
       scales: {
         x: {
           min: -25, max: 25,
           grid: {
-            // HA az érték 0, akkor fehér és vastag legyen a vonal (X tengely)
-            color: (context) => context.tick.value === 0 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.1)',
-            lineWidth: (context) => context.tick.value === 0 ? 3 : 1,
+            color: (ctx) => ctx.tick.value === 0 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.05)',
+            lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1,
             drawBorder: false
           },
-          title: { display: true, text: '⬅ Introvertált   Extrovertált ➡', color: '#94a3b8', font: { weight: 'bold' } },
+          title: { display: true, text: '⬅ Introvertált    Extrovertált ➡', color: '#94a3b8', font: { weight: 'bold' } },
           ticks: { display: false }
         },
         y: {
           min: -25, max: 25,
           grid: {
-            // HA az érték 0, akkor fehér és vastag legyen a vonal (Y tengely)
-            color: (context) => context.tick.value === 0 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.1)',
-            lineWidth: (context) => context.tick.value === 0 ? 3 : 1,
+            color: (ctx) => ctx.tick.value === 0 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.05)',
+            lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1,
             drawBorder: false
           },
-          title: { display: true, text: 'Kapcsolat ⬇   Feladat ⬆', color: '#94a3b8', font: { weight: 'bold' } },
+          title: { display: true, text: 'Kapcsolat ⬇    Feladat ⬆', color: '#94a3b8', font: { weight: 'bold' } },
           ticks: { display: false }
         }
       },
       plugins: {
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: () => `D:${scores.D} I:${scores.I} S:${scores.S} C:${scores.C}`
+          }
+        }
       }
     }
   });
