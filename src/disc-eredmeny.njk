@@ -204,73 +204,144 @@ document.addEventListener("DOMContentLoaded", () => {
   const total = scores.D + scores.I + scores.S + scores.C;
 
   // Expanded Data Object
-  const colorsData = {
+const colorsData = {
     D: { 
       name: 'PIROS (Domináns)', color: '#ef4444', 
-      keywords: "Eredmény, Irányítás, Kihívás",
-      motto: "Csináljuk meg most!",
-      fear: "Irányítás elvesztése, Kudarc",
-      desc: "Te egy született hajtóerő vagy, aki számára a világ egy megoldandó feladvány vagy egy legyőzendő akadálypálya. <strong>Rendkívül eredményorientált</strong>, határozott és magabiztos személyiség vagy. Nem ijedsz meg a felelősségtől, sőt, krízishelyzetben te vagy az, aki ösztönösen átveszi az irányítást.",
-      perception: "<strong>Ahogy te látod magad:</strong> Céltudatos, logikus, gyors és őszinte vezető.<br><br><strong>Ahogy mások láthatnak:</strong> Távolságtartónak, arrogánsnak vagy türelmetlennek.",
-      motivation: "A <strong>győzelem, a kontroll és a konkrét eredmények</strong> éltetnek.",
-      comm: "Légy türelmesebb! Hallgass meg másokat végig, mielőtt döntesz.",
-      stressImmediate: "Dühkitörés, követelőzés, mások szavának elfojtása.",
-      stressPressure: "Csőlátás: csak a feladat számít, az emberek nem.",
-      stressLongTerm: "Kiégés és elszigetelődést, mert senkit nem tartasz elég jónak.",
-      conflict: "A konfliktus egy verseny, amit meg kell nyerni.",
-      relationship: "Erős, önálló társra van szükséged, aki nem ijed meg tőled.",
-      jobs: "<ul><li>Vállalkozó / Cégvezető</li><li>Projektmenedzser</li><li>Ügyvéd</li><li>Értékesítési vezető</li></ul>"
+      keywords: "Eredmény, Irányítás, Verseny, Vízió",
+      motto: "Vezess, kövess, vagy állj félre az útból!",
+      fear: "Irányítás elvesztése, Kudarc, Kihasználás",
+      desc: `
+        <p>Te egy született "alfa" karakter vagy, akit a belső motorja folyamatosan előre hajt. Számodra az élet nem egy békés utazás, hanem egy hegycsúcs, amit meg kell mászni. <strong>Rendkívül céltudatos, határozott és magabiztos</strong> vagy. Nem vársz a sült galambra: ha látsz egy problémát, azonnal nekilátsz a megoldásnak, gyakran akkor is, ha nincs meg minden információd.</p>
+        <p>Kiválóan kezeled a krízishelyzeteket; amikor mások pánikba esnek, te akkor válsz igazán élessé. A "lehetetlen" szó számodra csak egy kihívást jelent. Ugyanakkor hajlamos vagy a türelmetlenségre: gyűlölöd a mellébeszélést, a lassúságot és a döntésképtelenséget.</p>
+        <ul style="margin-top:10px; padding-left:20px; text-align:left;">
+            <li><strong>Erősséged:</strong> Gyors döntéshozatal, bátorság, akadályok leküzdése.</li>
+            <li><strong>Gyengeséged:</strong> Mások érzelmeinek figyelmen kívül hagyása, túlzott dominancia.</li>
+        </ul>`,
+      perception: `
+        <p><strong>Ahogy te látod magad:</strong> Egy született vezető, aki képes átvágni a gordiuszi csomót. Őszinte vagy, egyenes és hatékony. Nem érted, miért sértődnek meg mások a tényeken, hiszen te csak a haladást szolgálod.</p>
+        <p><strong>Ahogy mások láthatnak:</strong> Egy rosszabb napodon félelmetesnek, érzéketlennek vagy "gőzhengernek" tűnhetsz. Sokan úgy érezhetik, hogy nem lehet melletted érvényesülni, mert elnyomod a véleményüket. A határozottságodat gyakran agressziónak vélhetik.</p>`,
+      motivation: `
+        <p>Téged nem a biztonság vagy a barátkozás motivál elsősorban, hanem a <strong>státusz, a hatalom és a mérhető siker</strong>.</p>
+        <ul style="text-align:left; margin-top:5px;">
+            <li>Szereted a versenyhelyzeteket, ahol bizonyíthatod a rátermettségedet.</li>
+            <li>Fontos számodra a függetlenség: utálod, ha mikromenedzselnek.</li>
+            <li>Akkor érzed magad elemedben, ha te irányíthatod az eseményeket és te hozhatod meg a végső döntést.</li>
+        </ul>`,
+      comm: `
+        <p>A kommunikációd lényegre törő, gyakran parancsoló jellegű. Nem szereted a "körítéseket".</p>
+        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-top:10px;">
+            <strong>💡 Fejlődési tipp:</strong> Számolj el háromig, mielőtt reagálsz! Vedd észre, hogy a hatékonyság néha az emberi kapcsolatok rovására megy. Egy "köszönöm" vagy egy "hogy vagy?" csodákra képes a csapatod motiválásában. Hallgasd végig a többieket, még akkor is, ha úgy érzed, már tudod a megoldást.
+        </div>`,
+      stressImmediate: "Hirtelen dühkitöréssel, ajtócsapkodással vagy hangos követelőzéssel reagálsz. Ilyenkor hajlamos vagy átgázolni másokon, csak hogy visszaszerezd a kontrollt.",
+      stressPressure: "Teljesen beszűkül a látásmódod. Csak a feladatra fókuszálsz, munkamániássá válsz, és mindenkit 'akadálynak' tekintesz, aki nem tartja a tempódat.",
+      stressLongTerm: "A krónikus stressz alatt kiégsz, cinikussá válsz, és elszigetelődhetsz, mivel úgy érzed, 'mindenki idióta körülöttem', és csak magadra számíthatsz.",
+      conflict: "A konfliktus számodra a dominancia harca. A célod a győzelem, nem a kompromisszum. Logikával és erővel érvelsz, és nehezen engedsz az igazadból.",
+      relationship: "Olyan társra van szükséged, aki tisztel, de nem hódol be neked. Szereted azokat, akiknek van gerincük és saját véleményük, de hagyják, hogy a nagy kérdésekben te dönts.",
+      jobs: "<ul><li>Vállalkozó / Vezérigazgató (CEO)</li><li>Projektmenedzser / Krízismenedzser</li><li>Ügyvéd / Jogász</li><li>Rendőr / Katonai vezető</li><li>Értékesítési igazgató</li></ul>"
     },
     I: { 
       name: 'SÁRGA (Befolyásoló)', color: '#eab308', 
-      keywords: "Lelkesedés, Társaság, Optimizmus",
-      motto: "Csináljuk együtt és legyen jó buli!",
-      fear: "Elutasítás, Unalom, Népszerűség vesztés",
-      desc: "Te vagy a társaság motorja, az örök optimista. <strong>Imádod az embereket</strong>, a pörgést és a folyamatos impulzusokat. Zseniális meggyőzőképességgel rendelkezel, könnyen teremtesz kapcsolatokat, és te vagy az, aki képes lelkesíteni egy egész csapatot.",
-      perception: "<strong>Ahogy te látod magad:</strong> Barátságos, inspiráló, kreatív és nyitott.<br><br><strong>Ahogy mások láthatnak:</strong> Felszínesnek, kapkodónak vagy túl hangosnak.",
-      motivation: "Az <strong>elismerés, a népszerűség és az élmények</strong> hajtanak.",
-      comm: "Gyakorold az aktív hallgatást és a részletekre való odafigyelést!",
-      stressImmediate: "Érzelmi kitörés, szóáradat, viccelődés komoly helyzetben.",
-      stressPressure: "Szétszórtság, kapkodás, ígéretek be nem tartása.",
-      stressLongTerm: "Pesszimizmus, kedvtelenség, visszahúzódás.",
-      conflict: "Megpróbálod elsimítani a bajt, vagy érzelmileg megsértődsz.",
-      relationship: "Izgalomra és állandó megerősítésre vágysz.",
-      jobs: "<ul><li>Marketing / PR</li><li>Rendezvényszervező</li><li>Tréner / Előadó</li><li>Utazásszervező</li></ul>"
+      keywords: "Lelkesedés, Kapcsolatok, Spontaneitás, Showman",
+      motto: "Az élet túl rövid ahhoz, hogy unatkozzunk!",
+      fear: "Elutasítás, Kiközösítés, Unalom, Részletek",
+      desc: `
+        <p>Te vagy a napsütés egy esős napon. Árad belőled az energia, az optimizmus és a karizma. <strong>Imádod az embereket</strong>, és ők is imádnak téged. Számodra a világ egy hatalmas színpad, tele lehetőségekkel és barátokkal, akikkel még nem találkoztál.</p>
+        <p>Kreatív vagy, vizionárius, és kiválóan tudsz másokat motiválni. Ahol te megjelensz, ott pezsegni kezd a levegő. Ugyanakkor a részletek, a monotonitás és az adminisztráció a halálos ellenségeid. Hajlamos vagy belelkesedni ötletekért, majd félúton elhagyni őket, ha jön egy újabb, izgalmasabb inger.</p>
+        <ul style="margin-top:10px; padding-left:20px; text-align:left;">
+            <li><strong>Erősséged:</strong> Kapcsolatteremtés, meggyőzés, optimizmus, kreativitás.</li>
+            <li><strong>Gyengeséged:</strong> Részletek elhanyagolása, időmenedzsment, szétszórtság.</li>
+        </ul>`,
+      perception: `
+        <p><strong>Ahogy te látod magad:</strong> Egy társasági lény, aki inspirál, segít és jobb kedvre derít másokat. Úgy érzed, te vagy a ragasztó, ami összetartja a közösséget.</p>
+        <p><strong>Ahogy mások láthatnak:</strong> Szigorúbb típusok (főleg a Kékek) felszínesnek, megbízhatatlannak vagy túl "soknak" tarthatnak. Néha úgy tűnhet, hogy csak a szádat jártatod, de a munka nehezét másra hagyod.</p>`,
+      motivation: `
+        <p>A legfőbb üzemanyagod a <strong>társadalmi elismerés és a népszerűség</strong>.</p>
+        <ul style="text-align:left; margin-top:5px;">
+            <li>Szükséged van a visszajelzésre, a dicséretre és a közönségre.</li>
+            <li>Motivál a szabadság, a változatosság és a lehetőség az önkifejezésre.</li>
+            <li>Akkor teljesítesz a legjobban, ha emberekkel foglalkozhatsz, nem papírokkal.</li>
+        </ul>`,
+      comm: `
+        <p>Szórakoztató, sztorizgatós és érzelmekkel teli a stílusod. Gyakran elkalandozol.</p>
+        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-top:10px;">
+            <strong>💡 Fejlődési tipp:</strong> Tanulj meg hallgatni! Ne csak arra várj, hogy te beszélhess. A hitelességed kulcsa, ha betartod az ígéreteidet: írd fel a határidőket, és ne ígérj olyat a pillanat hevében, amit nem tudsz teljesíteni. A kevesebb néha több.
+        </div>`,
+      stressImmediate: "Érzelmi túlfűtöttség. Ha baj van, megpróbálod elviccelni, vagy pánikszerűen beszélni kezdesz, hogy eltereld a figyelmet a problémáról. Sértődékennyé válhatsz.",
+      stressPressure: "Szétszórttá és kapkodóvá válsz. Mindenbe belekezdesz, de semmit nem fejezel be. Kétségbeesetten keresed mások társaságát, hogy megnyugtassanak.",
+      stressLongTerm: "A 'csillogás' elvesztése. Ha tartósan negatív környezetben vagy, depresszióssá, kedvtelenné és passzívvá válhatsz. Ez a legveszélyesebb állapot egy Sárga számára.",
+      conflict: "Zsigerből utálod a konfliktust, mert félsz, hogy nem fognak szeretni. Megpróbálod kiszövegelni magad a helyzetből, vagy mártírt játszol, hogy sajnáljanak.",
+      relationship: "Olyan partner kell, aki földön tart, de nem nyesegeti a szárnyaidat. Imádod a közös élményeket, az utazást és a spontán randevúkat. Az unalom a kapcsolat halála.",
+      jobs: "<ul><li>Marketing / PR szakértő</li><li>Rendezvényszervező</li><li>Értékesítő / Üzletkötő</li><li>Tréner / Motivációs előadó</li><li>Színész / Művész</li></ul>"
     },
     S: { 
       name: 'ZÖLD (Stabil)', color: '#22c55e', 
-      keywords: "Nyugalom, Támogatás, Lojalitás",
-      motto: "Csináljuk békésen és biztosan.",
-      fear: "Hirtelen változás, Biztonság elvesztése",
-      desc: "Nyugodt, türelmes és végtelenül megbízható személyiség vagy. Számodra a <strong>harmónia és az őszinteség</strong> alapvető létszükségletek. Te vagy a tökéletes csapatjátékos, lojalitásod megingathatatlan.",
-      perception: "<strong>Ahogy te látod magad:</strong> Megbízható, türelmes, lojális segítő.<br><br><strong>Ahogy mások láthatnak:</strong> Túl passzívnak, lassúnak vagy makacsnak.",
-      motivation: "A <strong>biztonság, a stabilitás és a kiszámíthatóság</strong> éltet.",
-      comm: "Tanulj meg nemet mondani és kiállni a saját érdekeidért!",
-      stressImmediate: "Lefagyás, passzivitás, behódolás a békességért.",
-      stressPressure: "Passzív-agresszivitás, makacs ellenállás.",
-      stressLongTerm: "Mártírszerep és pszichoszomatikus tünetek.",
-      conflict: "Kerülöd a konfrontációt, inkább engedsz.",
-      relationship: "Hűséget, nyugalmat és mély elköteleződést keresel.",
-      jobs: "<ul><li>HR szakértő</li><li>Tanár / Terapeuta</li><li>Ügyfélszolgálat</li><li>Egészségügyi dolgozó</li></ul>"
+      keywords: "Nyugalom, Empátia, Stabilitás, Csapatjáték",
+      motto: "Lassan járj, tovább érsz.",
+      fear: "Hirtelen változás, Konfliktus, Biztonság elvesztése",
+      desc: `
+        <p>Te vagy a szikla a viharban. Nyugodt, kiegyensúlyozott és végtelenül türelmes természeteddel te adod a biztonságot a környezetednek. <strong>A harmónia és a kiszámíthatóság</strong> a két legfontosabb érték számodra. Nem szereted a reflektorfényt, inkább a háttérből támogatod a csapatot.</p>
+        <p>Hihetetlenül empatikus vagy, remek hallgatóság, és mélyen lojális. Ha valaki egyszer a barátod lesz, az egy életre szól. Nehezen viseled azonban a hirtelen változásokat, a kapkodást és az agresszív embereket. Döntéseidet lassan, megfontoltan hozod meg, a kockázatok minimalizálása érdekében.</p>
+        <ul style="margin-top:10px; padding-left:20px; text-align:left;">
+            <li><strong>Erősséged:</strong> Megbízhatóság, türelem, diplomácia, kitartás.</li>
+            <li><strong>Gyengeséged:</strong> Döntésképtelenség, túlzott engedékenység, változástól való félelem.</li>
+        </ul>`,
+      perception: `
+        <p><strong>Ahogy te látod magad:</strong> Egy segítőkész, békés ember, aki kerüli a bajt és vigyáz másokra. A "józan ész" híve vagy.</p>
+        <p><strong>Ahogy mások láthatnak:</strong> A dinamikusabb típusok (Piros, Sárga) néha lassúnak, körülményesnek vagy passzívnak láthatnak. Előfordulhat, hogy azt hiszik, nincs véleményed, pedig csak nem mondod ki hangosan, hogy elkerüld a vitát.</p>`,
+      motivation: `
+        <p>A legfőbb motivációd a <strong>biztonság, a stabilitás és a közösséghez tartozás</strong>.</p>
+        <ul style="text-align:left; margin-top:5px;">
+            <li>Szereted a világos folyamatokat, ahol tudod, mi a dolgod.</li>
+            <li>Motivál, ha őszintén értékelik a munkádat és emberként bánnak veled.</li>
+            <li>Szükséged van időre, hogy felkészülj a változásokra.</li>
+        </ul>`,
+      comm: `
+        <p>Halk, megfontolt és barátságos. Inkább kérdezel, mint kijelentesz.</p>
+        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-top:10px;">
+            <strong>💡 Fejlődési tipp:</strong> Tanulj meg NEM-et mondani! A kedvességedet sokan kihasználhatják. Ha problémád van, mondd ki, ne gyűjtögesd magadban a sérelmeket, mert az előbb-utóbb robbanáshoz vezet. A véleményed értékes – oszd meg bátrabban!
+        </div>`,
+      stressImmediate: "Lefagyás. Ilyenkor bezárkózol, és 'láthatatlanná' próbálsz válni. Bólogatsz, csak hogy vége legyen a feszültségnek, még akkor is, ha nem értesz egyet.",
+      stressPressure: "Passzív ellenállásba vonulsz. Makaccsá válsz, direkt lassan csinálod a dolgokat, vagy 'elfelejted' megcsinálni őket. Ez a csendes lázadásod.",
+      stressLongTerm: "Mártírszerep. Úgy érzed, te cipelsz minden terhet, miközben senki sem ért meg. Pszichoszomatikus tünetek (fejfájás, gyomorfájás) jelentkezhetnek a benyelt stressztől.",
+      conflict: "Mindent megteszel, hogy elkerüld. Ha muszáj beleállni, akkor is inkább engedsz a saját érdekeidből, csak álljon helyre a béke. Ez hosszú távon önbizalomhiányhoz vezethet.",
+      relationship: "Hosszútávra tervezel. A hűség és a gondoskodás a szeretetnyelved. Nem vágysz drámára, csak egy nyugodt otthonra és egy megbízható társra.",
+      jobs: "<ul><li>HR szakértő / Tanácsadó</li><li>Tanár / Óvodapedagógus</li><li>Pszichológus / Terapeuta</li><li>Ügyfélszolgálati munkatárs</li><li>Egészségügyi dolgozó</li></ul>"
     },
     C: { 
       name: 'KÉK (Szabálytisztelő)', color: '#3b82f6', 
-      keywords: "Precizitás, Elemzés, Logika",
-      motto: "Csináljuk meg tökéletesen.",
-      fear: "Kritika, Hibázás, Rendetlenség",
-      desc: "Precíz, analitikus és mélyen logikus gondolkodású vagy. Számodra a <strong>pontosság és a tények</strong> mindennél többet érnek. Rád a legbonyolultabb feladatokat is rá lehet bízni, mert addig nem nyugszol, amíg minden részlet a helyére nem kerül.",
-      perception: "<strong>Ahogy te látod magad:</strong> Objektív, felkészült, minőségi szakértő.<br><br><strong>Ahogy mások láthatnak:</strong> Hidegnek, szőrszálhasogatónak vagy kritikusnak.",
-      motivation: "A <strong>pontosság, a rend és a logika</strong> motivál.",
-      comm: "Fogadd el, hogy a 'jó' néha elég, nem kell mindig a 'tökéletes'.",
-      stressImmediate: "Visszavonulás, bezárkózás, mániákus elemzés.",
-      stressPressure: "Analízis-paralízis: képtelen vagy dönteni a félelemtől.",
-      stressLongTerm: "Teljes izoláció és ellenséges kritika mindenki felé.",
-      conflict: "Tényekkel vitázol, lefagysz az érzelmektől.",
-      relationship: "Kiszámíthatóságot és intellektuális társat keresel.",
-      jobs: "<ul><li>Mérnök / IT</li><li>Pénzügyi elemző</li><li>Minőségbiztosítás</li><li>Kutató / Tudós</li></ul>"
+      keywords: "Precizitás, Logika, Minőség, Rendszer",
+      motto: "Mérjük meg kétszer, vágjunk egyszer.",
+      fear: "Kritika, Hiba, Rendetlenség, Irracionalitás",
+      desc: `
+        <p>Te vagy a rendszerek építője, a minőség őre. <strong>Analitikus, precíz és tárgyilagos</strong> gondolkodásmódod van. Nem elégszel meg a felszínes válaszokkal; a dolgok mélyére akarsz látni. Számodra a tények, az adatok és a bizonyítékok jelentik a világ alapját.</p>
+        <p>Maximalista vagy, aki a tökéletességre törekszik. Rád lehet bízni a legbonyolultabb feladatokat is, mert addig nem nyugszol, amíg minden részlet a helyére nem kerül. Óvatos vagy, és minden eshetőségre van egy "B" terved. Nehezen viseled a hanyagságot és a logikátlan döntéseket.</p>
+        <ul style="margin-top:10px; padding-left:20px; text-align:left;">
+            <li><strong>Erősséged:</strong> Pontosság, elemzőkészség, szervezettség, magas minőség.</li>
+            <li><strong>Gyengeséged:</strong> Túl részletező, kritikus, nehezen dönt (analízis-paralízis).</li>
+        </ul>`,
+      perception: `
+        <p><strong>Ahogy te látod magad:</strong> Egy lelkiismeretes, felkészült szakember, aki a minőséget képviseli a káoszban. A racionalitás hangja vagy.</p>
+        <p><strong>Ahogy mások láthatnak:</strong> Távolságtartónak, hidegnek, néha pedig szőrszálhasogatónak tűnhetsz. Mások úgy érezhetik, hogy sosem lehet megfelelni az elvárásaidnak, mert mindig találsz valami hibát.</p>`,
+      motivation: `
+        <p>Téged a <strong>tökéletes végeredmény, a rend és a megértés</strong> motivál.</p>
+        <ul style="text-align:left; margin-top:5px;">
+            <li>Szereted, ha hagynak elmélyülten dolgozni, zavaró tényezők nélkül.</li>
+            <li>Motivál, ha logikus feladatokat kapsz, és elegendő időt a kidolgozásra.</li>
+            <li>Akkor érzed magad jól, ha a szabályok világosak és mindenki betartja őket.</li>
+        </ul>`,
+      comm: `
+        <p>Tényközlő, írásban gyakran jobb vagy, mint szóban. Szereted az adatokat.</p>
+        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-top:10px;">
+            <strong>💡 Fejlődési tipp:</strong> Ne feledd, az embereknek érzelmeik is vannak, nem csak alkatrészeik. Néha a "elég jó" is tökéletes. Próbáld meg nem kritizálni azonnal mások ötleteit, hanem keresd meg benne a jót is. Nyílj meg érzelmileg egy kicsit jobban!
+        </div>`,
+      stressImmediate: "Visszavonulás. Bezárkózol a saját világodba, és elkezded mániákusan keresni a hiba okát. Elveszel a részletekben, hogy visszanyerd a kontrollt.",
+      stressPressure: "Analízis-paralízis. Annyira félsz a rossz döntéstől, hogy inkább nem döntesz sehogy. Folyamatosan újabb és újabb adatokat kérsz, ezzel megakasztva a folyamatot.",
+      stressLongTerm: "Keserűség és izoláció. Úgy érzed, a világ egy kaotikus, igénytelen hely, ahol egyedül te vagy kompetens. Mindenkivel szemben gyanakvóvá és kritikussá válsz.",
+      conflict: "A konfliktusban érzelemmentesnek tűnsz, tényekkel és logikával 'semmisíted meg' a másikat. Ha viszont érzelmi támadás ér, teljesen lefagysz, mert azt nem tudod értelmezni.",
+      relationship: "Lassan nyílsz meg. A párodtól is intellektuális partnerséget és kiszámíthatóságot vársz. A szeretetedet tettekkel (pl. megjavítasz valamit, rendbe teszed a pénzügyeket) fejezed ki.",
+      jobs: "<ul><li>Mérnök / Szoftverfejlesztő</li><li>Könyvelő / Pénzügyi elemző</li><li>Minőségbiztosítási szakértő</li><li>Kutatóorvos / Tudós</li><li>Építész</li></ul>"
     }
   };
-
   // Sort scores to find Dominant and order the bars
   const sorted = Object.keys(scores)
     .map(key => ({ key, score: scores[key], percent: Math.round((scores[key] / total) * 100) }))
